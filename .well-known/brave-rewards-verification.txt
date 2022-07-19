@@ -1,0 +1,4 @@
+This is a Brave Rewards publisher verification file.
+
+Domain: mushu404.github.io
+Token: c2fa53bef43307716833e069842e4a7d672a75334a300c7066f26b191ec82d42
