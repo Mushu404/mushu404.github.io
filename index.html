@@ -36,7 +36,8 @@
       <div class="M"><p style="position: absolute; left: 570px; top: 6cm;">Menu: </p></div>
     <div class="U"><p style="position: absolute; left: 570px; top: 240px;">-----</p></div>
 
-
+      <!--curseur-->
+      <div id="cursor"><div id="circle"></div></div>
       <!--whoami?-->
     <p style="position: absolute; left: 590px; top: 280px;">&gt;whoami ?</p>
     <div class="c1"><div class="typewriter-text" style="position: absolute; left: 610px; top:330px;">Yo moi c'est <b>Mushu</b> !</div></div>
@@ -249,6 +250,68 @@
         .c1{
             display: inline-block;
         }
+        /* Cursor design */
+          :root {
+          --dark: #1f1f24;
+          --purple: #FFB5A1;
+          }
+          .a_link {
+          color: #fff;
+          font-weight: 800;
+          cursor: none;
+          }
+          #cursor {
+          position: absolute;
+          width: 40px;
+          height: 40px;
+          top: 50%;
+          left: 50%;
+          border-radius: 100%;
+          background: var(--purple);
+          pointer-events: none;
+          mix-blend-mode: difference;
+          transition: transform .5s;
+          z-index: 99;
+          }
+          #cursor.hovered {
+          transform: scale(1.75);
+          }
+          #cursor.hovered #circle {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          border-radius: 100%;
+          animation: rotateDot 2s infinite linear;
+          }
+          #cursor #circle:after {
+          position: absolute;
+          content: "";
+          width: 4px;
+          height: 4px;
+          background-color: var(--dark);
+          top: 5px;
+          left: 5px;
+          opacity: 0;
+          border-radius: 100%;
+          }
+          #cursor.hovered #circle:after {
+          opacity: 1;
+          }
+          @keyframes rotateDot {
+          0% {
+          -webkit-transform: rotate(0deg);
+          -moz-transform: rotate(0deg);
+          -ms-transform: rotate(0deg);
+          -o-transform: rotate(0deg);
+          transform: rotate(0deg);
+          }
+          100% {
+          -webkit-transform: rotate(360deg);
+          -moz-transform: rotate(360deg);
+          -o-transform: rotate(360deg);
+          transform: rotate(360deg);
+          }
+          }
         /*voici le numéro 3: 321 continuez comme ça!*/
        </style>
        <!--fin du css et début du javascript-->
@@ -305,6 +368,28 @@ var _0xbc56=["\x73\x68\x69\x66\x74","\x70\x75\x73\x68","\x6C\x6F\x67","\x33\x32\
         
         var bouton_convertir = document.getElementById('convertir_hex');
         bouton_convertir.onclick = validation_hex;
+        var a_link = document.querySelectorAll(".a_link");
+
+      // Handle mouse over/out event on links
+      a_link.forEach(e => e.addEventListener('mouseenter', handleMouseEnter));
+      a_link.forEach(e => e.addEventListener('mouseleave', handleMouseLeave));
+      window.addEventListener('mousemove', handleMouseMove);
+      // Move the cursor in dom/window
+      function handleMouseMove(event) {
+      var top = event.pageY - (cursor.clientHeight / 2);
+      var left = event.pageX - (cursor.clientWidth / 2);
+      cursor.style.top = top + 'px';
+      cursor.style.left = left + 'px';
+      }
+      // event: mouse enter on link
+      function handleMouseEnter() {
+      cursor.classList.add('hovered');
+      }
+      // event: mouse leave on link
+      function handleMouseLeave() {
+      cursor.classList.remove('hovered');
+      }
+
         </script>
    
    <!--j'ai décidé de mettre le css et le javascript au même endroit pour rendre plus simple les modifications-->
